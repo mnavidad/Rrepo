@@ -1,0 +1,260 @@
+---
+title: "Exploring the BRFSS data"
+output: 
+  html_document: 
+    fig_height: 4
+    highlight: pygments
+    theme: spacelab
+---
+
+## Setup
+
+### Load packages
+
+```{r load-packages, message = FALSE}
+library(ggplot2)
+library(dplyr)
+```
+
+### Load data
+
+
+```{r load-data}
+load("brfss2013.RData")
+```
+
+
+* * *
+
+## Part 1: Data
+<div>
+<strong>Scope of Inference:</strong>
+<p>
+<strong>Description: </strong>
+
+BRFSS's objective is to collect uniform state-specific data on health risk behaviors, chronic diseases and conditions, access to health care, and use of preventive health services related to the leading causes of death and disability in the United States. Factors assessed by the BRFSS in 2016 included health status, healthy days/health-related quality of life, health care access, exercise, inadequate sleep, chronic health conditions, oral health, tobacco use, e-cigarettes, alcohol consumption, immunization, falls, seat belt use, drinking and driving, breast- and cervical cancer screening, prostate cancer screening, colorectal cancer screening, and HIV/AIDS knowledge
+</p>
+
+<p>
+<strong>The target population: adult population ages greater or equal to 18 years residing in the United States, as well as US territories.</strong>
+
+<strong>How the observations in the sample are collected?</strong>
+
+<strong>Answer:</strong>
+The sample data is collected via survey that is the survey is conducted using Random Digit Dialing (RDD) techniques on both landlines and cell phones. Random digit dialing (RDD) is a method for selecting people for involvement in telephone statistical surveys by generating telephone numbers at random. 
+
+According to the overview_2016 pdf document, In conducting the landline telephone survey, interviewers collect data from a randomly selected adult in a household. In conducting the cellular telephone survey, interviewers collect data from adults answering the cellular telephones residing in a private residence or college housing. Beginning in 2014, all adults contacted through their cellular telephone were eligible regardless of their landline phone use (i.e., complete overlap). </br>
+
+
+
+<strong>Type of study: </strong> Observational Study 
+
+<strong>Form of Observational Study: </strong> Retrospective Study 
+
+<strong>What are the implications of this data collection?</strong>
+
+<strong>Answer:</strong>
+
+BRFSS study can be classified as <strong> observational study</strong>. The researcher or interviewer is recording the responses of the population sample being surveyed, that is responders are not being influenced or manipulated by the interviewer.  
+and measures variables, but does not influence the population in any way or attempt to intervene in the study. There is no manipulation by the researcher.
+given that there is random sampling but no random assignment this study can be used for correlation and generalizability of the population, but not causality.
+
+<p>
+<i> "An important consideration in random digit dialing surveys is bias introduced by non-responders. Non-response bias can be a problem if responders differ from non-responders for the measured variables. For example, non-responders may not have been contacted because they work multiple minimum-wage jobs. Various techniques are used to reduce the non-response rate, such as multiple call attempts, monetary incentives, advance letters, and leaving messages on answering machines, because reducing the non-response rate may directly reduce non-response bias. In addition, when trying to calculate total error estimates, response rate calculations can be imprecise because it can be difficult to determine whether certain telephone numbers are interviewable. When the desired coverage area matches up closely enough with country codes and area codes, random digits can be chosen within the desired area codes. In cases where the desired region does not match area codes (for instance, electoral districts), surveys must rely on telephone databases, and must rely on self-reported address information for unlisted numbers. Increasing use of mobile phones (although there are currently techniques which allow infusion of wireless phones into the RDD sampling frame), number portability, and VoIP have begun to decrease the ability for RDD to target specific areas within a country and achieve complete coverage."</i>
+</p>
+
+<div>
+<strong>Generalizability:</strong> </br>
+<p>Given that This servey study is an observational study it can only make generalizabilities to persons 18 or older residing in the US and US territories
+</div>
+
+<strong> References</strong>
+
+<p>Source: https://en.wikipedia.org/wiki/Random_digit_dialing </br>
+Source: https://mathbitsnotebook.com/Algebra2/Statistics/STSurveys.html  </br>
+source: https://www.cdc.gov/brfss/annual_data/2016/pdf/overview_2016.pdf
+</br>
+Source: OpenIntro Statistics Third Edition by David M Diez et. all
+</p>
+</div>
+
+* * *
+
+## Part 2: Research questions
+
+**Research quesion 1:**
+<div>
+<p>Does number of hours of sleep contributes to poor mental health, that is not feeling good?. The two variable to be explored are <strong>sleptim1:</strong>How Much Time Do You Sleep in 24 hours, variable type: continuous and <strong>menthlth:</strong>Number Of Days Mental Health Not Good.
+Anectodal we know that sleep can affect your mood, so it would be interesting to know if number of hours of sleep can make you have better mental health or poor mental health, with this data I may not be able to stablish causality but I would like to know if there is some relationship </p> 
+</div>
+**Research quesion 2:**
+<div>
+<p>
+Does number of hours of sleep contributes to poor physical health, that is not feeling good?  The two variable to be explored are <strong>sleptim1:</strong>How Much Time Do You Sleep in 24 hours and <strong>poorhlth:</strong> Poor Physical Or Mental Health; and <strong>qlmentl2:</strong>How Many Days Depressed In Past 30 Days.
+Anectodal we heard that sleep can affect your mood, so it would be interesting to know if number of hours of sleep can make you have better physical health or poor physical health, wiht this data I may not be able to stablish causality but I would like to know if there is some relationship.
+</div></p> 
+**Research quesion 3:**
+<div>
+<p>
+How do men and women compare in general health and feeling depressed?  The two variable to be explored are <strong>genhlth:</strong>categorical variable,
+describes general your health as excellent, very good, good, fair and  poor and <strong>qlmentl2:</strong>continuous variable that describes how Many days depressed In Past 30 Days and the <strong>sex:</strong> categorical variable.
+</div></p>
+
+
+* * *
+
+## Part 3: Exploratory data analysis
+
+
+**Research quesion 1:**
+
+```{r}
+inadecuate_sleep <- brfss2013 %>%
+
+ select(menthlth,sleptim1) %>% 
+ filter(!is.na(menthlth))  %>% 
+ filter(!is.na(sleptim1)) %>% 
+ filter(sleptim1 <=24) %>%
+ filter(menthlth <=30)  
+
+ggplot(inadecuate_sleep, aes(x=sleptim1, y=menthlth)) +
+  geom_point() +
+  geom_smooth(method='lm') +
+ xlab("Hours of Sleep") + ylab("Mental Health") 
+
+
+
+```
+
+```{r}
+mentalhealth_depressed <- brfss2013 %>%
+
+ select(menthlth,qlmentl2) %>% 
+ filter(!is.na(menthlth)) %>% 
+ filter(!is.na(qlmentl2))  
+
+ggplot(mentalhealth_depressed, aes(x = menthlth,  y = log(qlmentl2 + 1) )) + geom_point(shape = 19, alpha = 1/4) +  geom_smooth(method = "auto", se = "FALSE") +
+xlab("Mental Health") + ylab("Days depressed") 
+
+```
+
+```{r}
+ggplot(inadecuate_sleep, aes(x = sleptim1, y=..density.. ))  +
+  geom_histogram(breaks=seq(5, 30, 1),
+                  col="red",
+                  fill="green",
+                  alpha = .2) +
+   labs(title="Number Of sleep hours in a day") +
+   labs(x="sleep hours")
+```
+
+```{r}
+sleepSummary <- brfss2013 %>%
+select(sleptim1) %>%
+filter(!is.na(sleptim1))
+  
+summarise(sleepSummary,   mean_sleep = mean(sleptim1),
+            median_sleep = median(sleptim1),
+            sd_sleep = sd(sleptim1), mode_sleep =  mode(sleptim1), 
+            n = n())
+  
+```
+
+<div>
+<p>It does not seem to be an association based on this data between number of hours of sleep and mental health. As we can see noted by the mean of sleep hours in 24 hours must surveyed participant get 7 hours of sleep on average on 24 hour period. The histogram for hours of sleep is right skewed where it shows some interviewee get more than 7 hours of sleep in a 24 hours</p> 
+</div>
+```{r}
+# sleepSummary <- brfss2013 %>%
+# select(sleptim1) %>%
+# filter(!is.na(sleptim1))
+# 
+# v <- c(sleepSummary)
+# 
+# getmode <- function(v) {
+#    uniqv <- unique(v)
+#    uniqv[which.max(tabulate(match(v, uniqv)))]
+# }
+# result <- getmode(v)
+# print(result)
+```
+
+**Research quesion 2:**
+
+```{r}
+
+physicalHealth <- brfss2013 %>%
+
+select(menthlth,physhlth,qlmentl2) %>% 
+filter(!is.na(menthlth))  %>% 
+ 
+ filter(menthlth <=30) %>%
+  filter(physhlth <=30) %>%
+ filter(!is.na(qlmentl2)) 
+
+ggplot(physicalHealth, aes(x = physhlth,  y = log(menthlth + 1) )) + geom_point(shape = 19, alpha = 1/4) +  geom_smooth(method = "auto", se = "FALSE") +
+xlab("Number Of Days Physical") + ylab("Number Of Days Mental Health") 
+
+ggplot(physicalHealth, aes(x = physhlth)) +
+  geom_histogram()+
+#ggplot(physicalHealth, aes(x = physhlth, y=..density.. )) +
+  #geom_histogram(binwidth = 2) +
+
+
+   labs(title="Number of physical Health days not good") +
+   labs(x="physical days")
+
+physicalHealthSummary <- brfss2013 %>%
+select(physhlth) %>%
+filter(!is.na(physhlth)) %>%
+filter(physhlth <=30) 
+
+  
+summarise(physicalHealthSummary,   mean_phhlth = mean(physhlth),
+            median_phhlth = median(physhlth),
+            sd_phhlth = sd(physhlth), 
+            n = n())
+  
+
+
+
+```
+
+ <div>
+<p>it does not seem to be an association based on this data between number of hours of physical days not good and mental health.  The histogram for physical days not good is right skewed </p> 
+</div>
+```{r}
+getmode <- function(v) {
+   uniqv <- unique(v)
+   uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+```
+
+
+**Research quesion 3:**
+
+```{r}
+generalHealth <- brfss2013 %>%
+select(genhlth,qlmentl2,sex) %>% 
+filter(!is.na(genhlth))  %>%
+filter(!is.na(qlmentl2))  %>%
+filter(!is.na(sex)) %>%
+mutate(gnhlth = ifelse(genhlth == "Poor", "Poor", "Very Good")) %>% filter(!is.na(gnhlth))
+  ggplot(generalHealth, aes(x = gnhlth, y = qlmentl2, colour = sex)) +
+  geom_boxplot() + facet_wrap(~sex) + xlab("General health") + ylab("Days Depressed")
+```
+```{r}
+
+generalHealth %>% group_by(sex, gnhlth) %>% summarise(mean_dprssd = mean(qlmentl2), iqr_dprssd = IQR(qlmentl2))
+```
+
+<div>
+<p>According to the data of participants serveyed, on average men feel less depressed and in poor health than women and given that this is an observational study we can only generalized this to population, or see it as a correlation but not causation that is general feelings of health vs feeling depressed between men and women </p> 
+```{r}
+
+```
+
+</div>
+```{r}
+# write.csv(brfss2013, file="brfss2013.csv")
+```
+
