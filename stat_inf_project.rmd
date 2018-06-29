@@ -1,0 +1,307 @@
+---
+title: "Statistical inference with the GSS data"
+output: 
+  html_document: 
+    fig_height: 4
+    highlight: pygments
+    theme: spacelab
+---
+
+## Setup
+
+### Load packages
+
+```{r load-packages, message = FALSE}
+library(ggplot2)
+library(dplyr)
+library(statsr)
+```
+
+### Load data
+
+
+```{r load-data}
+load("gss.Rdata")
+```
+
+
+* * *
+
+## Part 1: Data
+
+<div>
+<strong>Scope of Inference:</strong>
+<p>
+<strong>Description: </strong>
+
+Since 1972, the General Social Survey (GSS) has been monitoring societal change and studying the growing complexity of American society. The GSS aims to gather data on contemporary American society in order to monitor and explain trends and constants in attitudes, behaviors, and attributes; to examine the structure and functioning of society in general as well as the role played by relevant subgroups; to compare the United States to other societies in order to place American society in comparative perspective and develop cross-national models of human society; and to make high-quality data easily accessible to scholars, students, policy makers, and others, with minimal cost and waiting.
+
+GSS questions cover a diverse range of issues including national spending priorities, marijuana use, crime and punishment, race relations, quality of life, confidence in institutions, and sexual behavior.
+</p>
+
+<p>
+<strong>The target population:</strong>
+
+<div>The target population of the GSS is adults (18+) living in households in the United States. From 1972 to 2004 it was further restricted to those able to do the survey in English. From 2006 to present it has included those able to do the survey in English or Spanish. Those unable to do the survey in either English or Spanish are out-of-scope. Residents of institutions and group quarters are out-of-scope. Those with mental and/or physical conditions that prevent them from doing the survey, but who live in households are part of the target population and in-scope. In the reinterviews those who have died, moved out of the United States, or who no longer live in a household have left the target population and are out-of-scope. </div>
+
+</br>
+
+<strong>How the observations in the sample are collected?</strong>
+
+<strong>Answer:</strong>
+</br>
+The vast majority of GSS data is obtained in face-to-face interviews. Computer-assisted personal interviewing (CAPI) began in the 2002 GSS. Under some conditions when it has proved difficult to arrange an in-person interview with a sampled respondent, GSS interviews may be conducted by telephone. 
+
+ </br>
+
+
+<strong>Type of study: </strong> Observational Study 
+
+<strong>Form of Observational Study: </strong> Retrospective Study 
+
+<strong>What are the implications of this data collection?</strong>
+
+<p>
+
+<strong>Answer:</strong>
+
+<i> Important implications in collecting data via a survey
+<strong> Face to Face </strong>
+As with any data collection method, face-to-face interviews also provide some disadvantages over other data collection methods. They include:
+
+<ol>
+<li>Cost. Cost is a major disadvantage for face-to-face interviews. They require a staff of people to conduct the interviews, which means there will be personnel costs. 
+Quality of data by interviewer. The quality of data you receive will often depend on the ability of the interviewer. Some people have the natural ability to conduct an interview and gather data well. </li>
+
+<li>Manual data entry. If the interview is administered on paper, the data collected will need to be entered manually, or scanned, if a scannable interview questionnaire is created. Data entry and scanning of paper questionnaires can significantly increase the cost of the project. A staff of data entry personnel will need to be hired. Additionally, data entry can prolong the analysis process. Mobile surveys on iPads, tablets, or other mobile devices can cut-down on manual data entry costs and information is ready for analysis.</li>
+
+<li>Limit sample size. The size of the sample is limited to the size of your interviewing staff, the area in which the interviews are conducted, and the number of qualified respondents within that area. It may be necessary to conduct several interviews over multiple areas, which again can increase costs</li>
+</ol>
+
+</i>
+</p>
+<ol>
+
+<li>Accurate screening. Face-to-face interviews help with more accurate screening. The individual being interviewed is unable to provide false information during screening questions such as gender, age, or race. </li>
+<li>Capture verbal and non-verbal ques. A face-to-face interview is no doubt going to capture verbal and non-verbal ques, but this method also affords the capture of non-verbal ques including body language, which can indicate a level of discomfort with the questions. Adversely, it can also indicate a level of enthusiasm for the topics being discussed in the interview. </l>
+<li>Keep focus.  Face-to-face interviews are in-the-moment, free from technological distractions.</li>
+<li>Capture emotions and behaviors. Face-to-face interviews can no doubt capture an interviewee's emotions and behaviors. </li></ol> 
+
+<strong>Computer-assisted personal interviewing (CAPI)</strong>
+
+CAPI form of interview is substantially cheaper when a large number of respondents is required, because:
+
+<ol>
+<li>There is no need to recruit or pay interviewers. Respondents are able to fill in the questionnaires themselves (only true for CAPI).
+There is no need to transcribe the results into a computer form. The computer program can be constructed so as to place the results directly in a format that can be read by statistical analysis programs such as PSPP or DAP.</li>
+
+<li>The survey is likely to attract only respondents who are "computer savvy", thus introducing potential bias to the survey.</li>
+</li>The survey can miss feedback and clarification/quality control that a personal interviewer could provide. For example, a question that should be interpreted in a particular way, but could also be interpreted differently, can raise questions for respondents. If no interviewer is present, these questions will not be answered, potentially causing bias in the results of the questionnaire (only true for CAPI).</li>
+</ol>
+
+<strong>Phone interview advantages and disavantages</strong>
+</br>
+<li>Can lead to relatively high response rates in specific markets
+Interviews can be completed fairly quickly
+Can be used to reach samples over a wide geographic area
+Virtually everyone has a land-line phone or cell/mobile phone which helps for getting a representative sample of your audience</li>
+
+<li>Typically, questions cannot be of a complex nature. Discrete choice modeling and other research methods with complicated questions need to be seen to be understood.
+Given the rather widespread aversion to telemarketers, samples may perceive legitimate market research interviews as sales calls, and therefore refuse to participate.</li>
+</br>
+
+<div>
+<strong>Generalizability:</strong> 
+</br>
+<p>Given that there is probability sampling but no random assignment this study can be used for correlation and generalizability of the population, but not causality.
+This survey study is an observational study it can only make generalizabilities to persons 18 or older residing in the US.
+</div>
+
+<strong> References</strong>
+
+<p>Source:http://gss.norc.org/ </br>
+Source: http://gss.norc.org/faq </br>
+source: https://en.wikipedia.org/wiki/Computer-assisted_personal_interviewing </br>
+Source: http://www.cfrinc.net/cfrblog/telephone-interviewing-data-collection-advantages-disadvantages
+</br>
+Source: OpenIntro Statistics Third Edition by David M Diez et. all
+</br> 
+Source: http://gss.norc.org/documents/codebook/GSS_Codebook_index.pdf
+</p>
+</div>
+
+<strong>Note: Each plot and/or R output is accompanied by a narrative above or bellow the visualization!!!</strong>
+
+```{r view-data}
+#generates a list of all variables in the gss dataset
+names(gss)
+
+```
+<div>Above there is a brief list of all the variables in the dataset </div>
+```{r}
+```
+
+* * *
+
+## Part 2: Research question
+
+<div> What is the proportion of the population who is female that said 'yes' to ever being unemployed in past 10 years in the US during 2012? According to the Beaurou of labor statistics 47% of US workers are women, however women may find themselves unemployed, for xyz reasons. So it would be interested to know what proportion of the female population has been unemployed in the past 10 years. Additionally we will explore the relationship between the two variables age and unemp. Moreover, is there evidence that the proportion has changed from 2010 to 2012. In order to estimate these parameters of the population, we will use The inferential tools such as the confidence interval and the hypothesis test. </div>
+
+* * *
+
+## Part 3: Exploratory data analysis
+</br>
+
+<div>Although the documentation for the gss dataset was collected using probability sampling, it can reasonably be assumed that simple random sampling was used. And this can attest for independence. </div>
+</br>
+
+```{r}
+
+
+```
+
+<div>
+A confidence interval is a range of values likely to contain the parameter being estimated. Intervals can be constructed to be more or less likely to contain the parameter: 95% of 95% confidence intervals contain the estimated parameter. 
+
+The reason to use a confidense interval is to provide a range of values likely to contain the parameter being estimated that is the proportion of women that answered yes to ever being unemployed for the past ten years. 
+
+First we must verify that the sampling distribution of  p&#770; is nearly normal and calculate the standard error of  p&#770;.
+
+Observations are independent. The survey is based on a simple random sample and con-sists of fewer than 10% of the US adult population, which verifies independence.
+
+```{r}
+#The bellow code creates a subset of the dataset, using the categorical variables, sex #with values male, female 
+#uemp= ever being unemployed for the past ten years and numerical variable year.
+
+gssUS12 <- gss %>%
+select(sex, unemp, year)%>% 
+filter(gss$sex == "Female", gss$year == "2012")
+```
+
+</br>
+
+```{r}
+#The bellow code creates a subset of the dataset, using the categorical variables, sex #uemp, and numerical variable year.
+
+us12UnEmp <- gss %>%
+select(sex, unemp, year)%>%
+filter(sex =="Female", gss$unemp == "Yes" , gss$year == "2012")
+
+```
+<div>Success-failure condition. The sample size must also be suciently large, which is checked using the success-failure condition. See p&#770; calculation bellow for p&#770;
+
+There were (1088)(0.52) >= 10 "successes"and (1088)(1-0.52) >= 10 "failures" in the sample, both easily greater than 10 if you plug in the value for p&#770 generated in the code bellow</div>
+</br>
+
+```{r}
+#The code bellow calculates the the sample proportion p_hat
+
+usFem12_tab <- table(gssUS12$unemp)
+usFem12_tab
+  
+p_hat <- usFem12_tab[[1]]/usFem12_tab[[2]]
+p_hat
+
+#The results bellow list the proportion of women who responded 'yes' ever being unemployed in past ten years #and no to ever being unemployed in the past 10 years. 
+```
+```{r}
+#The bellow code uses the inference funtion to graph and calculate the confidence #interval
+
+inference(y = unemp, data = gssUS12, statistic = "proportion", type = "ci", method = "theoretical", success = "Yes")
+
+
+#We are 95% confident that the proportion of women in the US population in 2012 that #answered yes to ever being unemployed in the past ten years is between the interval (0.3117 , 0.3802)
+```
+```{r}
+#this code provides a summary statistics for average and median age of women who #answered yes to ever being unemployed the past 10 years
+
+us12UnEmpAge <- gss %>%
+select(sex, unemp, year, age)%>%
+filter(sex =="Female", gss$unemp == "Yes", gss$age)
+
+summarise(us12UnEmpAge,   mean_age = mean(age),
+           median_age = median(age),
+           sd_usFem12 = sd(age), mode_age =  mode(age), min_age = min(age), max_age = max(age), 
+            n = n())
+
+```
+<div>
+This is the sample summary statistics. Lets see to try to infer the population mean in the difference between the yes and no of the age of women who answered to ever being unemployed the in the past ten years.
+
+```{r}
+ggplot(data = us12UnEmpAge, aes(x = age)) +
+  geom_histogram(binwidth = 15)
+```
+Given that this histogram is generated from the sample of size 5780 for the age of women who said yes to ever being unemployed in the past ten years the data is right skewed, as we can see the max age is 89. There seems to be a clear relation between age and unemployment </br>
+* * *
+
+```{r}
+gss_unemp_age <- gss %>%
+
+select(unemp,age,sex) %>% 
+filter(!is.na(unemp)) %>% 
+filter(!is.na(age)) %>%
+filter(sex=='Female')
+boxplot(age ~ unemp, data = gss_unemp_age, xlab = "unemp", ylab = "age")
+ 
+```
+<li> The IQRs of the distributions are not equal. Women may find themeselves unemployed for numerous reasons, but the average age women said yes to being unemployed for the past 10 years shows to be about 36 years old, from what we can see from the box plot of the sample of the gss dataset, therefore there may be a strong relationship between age and unemp variables. </li>
+
+```{r}
+#The following code will generate a confidence interval for the difference in mean age between the yes and no of our populatio parameter of women that responded yes or no to ever being unemployed in the past 10 years.
+
+inference(y = age, x = unemp, data = gss_unemp_age, statistic = "mean", type = "ci", 
+          method = "theoretical")
+```
+<div>
+The reason to use a confidense interval is to provide a range of values likely to contain the parameter being estimated that is the average age of women who answered yes to ever being unemployed the past 10 years and women who aswered no is noted in confidence interval. 
+
+Therefore, we are 95% confident that the difference in the average age of the yes and no of women who answered yes to ever being unemployed the past 10 years noted in confidence interval (-13.2489 , -12.345). </div>
+
+
+
+```{r}
+#this code will calculate the margin of error of this estimated population proportion parameter
+
+n <- nrow(gssUS12)
+SE <- sqrt( p_hat *(1 - p_hat)/n  )
+z_star <- qnorm(0.05, lower.tail = FALSE)
+z_star*SE
+```
+
+## Part 4: Inference
+
+<li>Hypothesis</li>
+
+H<sub>0</sub> = There is no change for p<sub>0</sub> that is, p<sub>0</sub> is equal to p<sub>A</sub> 
+
+H<sub>A</sub> = There is convincing evidence that the proportion of women who said 'yes' to ever being unemployed in the past 10 years has changed between 2010 and 2012 where p<sub>0</sub> not equal to p<sub>A</sub>.
+
+<li>Check conditions</li>
+
+The method to be used is 'hypothesis testing', given that we want to know if the proporpotion of women who said yes to ever being unemployed in the past ten years has decreased or increased from 2010 to 2012. This is twosided hypothesis, so it is thought appropiate to use hypothesis testing to determine this for our population parameter.
+
+Moreover, to apply the normal distribution framework in the context of a hypothesis test for a proportion, the independence and success-failure conditions must be satisfied. In a hypothesis test, the success-failure condition is checked using the null proportion: we verify np<sub>0</sub> and n(1-p<sub>0</sub>) are at least 10, where p<sub>0</sub> is the null value.
+
+<li>Perform inference</li>
+
+```{r}
+
+```
+
+
+
+```{r}
+#Create a subset of the data with sex equals female and excluding all other years except 2010 and 2012
+gssUS10 <- gss %>%
+select(sex, unemp, year)%>% 
+filter(gss$sex == "Female", gss$year == "2012" | gss$year == "2010" )
+
+inference(y =unemp , x = as.factor(year), data = gssUS10, statistic = "proportion", type = "ht", null = 0, success = "Yes", alternative = "twosided", method = "theoretical")
+```
+</br>
+
+<li>Interpret results</li>
+
+<div>As the p-value is greater than the confidence level (&alpha; > 0.05), we failed to reject the null hypothesis. In other words, the data does not provides enough evidence that the proportion of women who answer yes to ever being unemployed in past ten years in United States had changed between 2010 and 2012.</div>
+
